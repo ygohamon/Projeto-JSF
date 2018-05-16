@@ -36,7 +36,8 @@ public class Empresa implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	private TipoEmpresa tipo;
-
+	
+	
 	public Long getId() {
 		return id;
 	}

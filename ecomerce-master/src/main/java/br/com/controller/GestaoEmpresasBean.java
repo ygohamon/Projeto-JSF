@@ -1,8 +1,10 @@
 package br.com.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.ManagedBean;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,6 +15,7 @@ import br.com.repository.Empresas;
 import br.com.service.CadastroEmpresaService;
 import br.com.util.FacesMessages;
 
+@ManagedBean
 @Named
 @ViewScoped
 public class GestaoEmpresasBean implements Serializable {
@@ -30,6 +33,7 @@ public class GestaoEmpresasBean implements Serializable {
 	
 	private List<Empresa> todasEmpresas;
 	private Empresa empresaEdicao = new Empresa();
+	
 	
 	public void prepararNovoCadastro() {
 		empresaEdicao = new Empresa();
@@ -62,7 +66,14 @@ public class GestaoEmpresasBean implements Serializable {
 		this.empresaEdicao = empresaEdicao;
 	}
 	
-	public void remover() {
-		CadastroEmpresaService.remover(empresaEdicao);
+	public void Remover() throws IOException {
+		cadastroEmpresa.excluir(empresaEdicao);
+		consultar();
+    }
+	
+	public void editar() {
+		empresaEdicao = this.empresas.porId(this.empresaEdicao.getId());
+		this.cadastroEmpresa.salvar(this.empresaEdicao);
 	}
+
 }

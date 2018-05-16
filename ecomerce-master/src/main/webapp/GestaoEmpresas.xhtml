@@ -25,15 +25,7 @@
 					<span class="ui-separator">
 						<span class="ui-icon ui-icon-grip-dotted-vertical" />
             		</span>
-            		
-            		<p:commandButton icon="ui-icon-pencil" title="Editar"/>
-            		
-            		<p:commandButton icon="ui-icon-trash" title="Excluir" 
-            			value="Remover" id="remover-button"
-						action="#{gestaoEmpresasBean.remover}"
-						process="empresa-dialog" update="empresa-table"
-						oncomplete="PF('edicaoEmpresaDialog').hide()"/>
-            		
+
             		<p:commandButton icon="ui-icon-arrowthick-1-s" title="Exportar para XLS" />
 				</f:facet>
 			</p:toolbar>
@@ -51,6 +43,30 @@
 				</p:column>
 				<p:column headerText="CNPJ" width="160">
 					<h:outputText value="#{empresa.cnpj}" />
+				</p:column>
+				<p:column headerText="Ações" width="160">
+					
+					<p:commandButton action="#{gestaoEmpresasBean.editar}" 
+						id="empresa-edit" value="Editar"
+						process="@this"
+						oncomplete="PF('edicaoEmpresaDialog').show()" 
+						update=":frm:empresa-dialog" >
+							<f:setPropertyActionListener 
+							target="#{gestaoEmpresasBean.empresaEdicao}" 
+							value="#{empresa}" />
+					</p:commandButton>
+            		
+            		<p:commandButton icon="ui-icon-trash" title="Excluir" 
+            			value="Remover" id="remover-button"
+						action="#{gestaoEmpresasBean.Remover}"
+						process="@this"
+						update="empresa-table">
+    						<f:setPropertyActionListener
+    						target="#{gestaoEmpresasBean.empresaEdicao}" 
+    						value="#{empresa}" />
+    				</p:commandButton>	
+						
+					
 				</p:column>
 			</p:dataTable>
 		
